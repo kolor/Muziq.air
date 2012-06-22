@@ -1,0 +1,51 @@
+html {background: black;}
+body {background: white; height: 600px; width: 800px;}
+body > div.view {background: white; width: 800px; height: 600px; position: fixed; background: black; left: -800px;}
+body > div#home {left: 0;}
+
+.load4 {background: url(img/loader-444.gif) no-repeat center center;}
+.load6 {background: url(img/loader-333.gif) no-repeat center center;}
+.hide {display: none;}
+.lt {float: left;}
+.rt {float: right;}
+.bold {font-weight: bold;}
+
+input:focus {outline:0;}
+
+.player .cp-container {left: 75px; top: 10px;}
+
+#home input {border:4px solid #1BA6F1; border-radius:6px 6px 6px 6px; font-size:32px; left:200px; padding:8px 10px; 
+position:absolute; top:240px; width:400px;}
+#home div.button {background:url("img/magnifier.png") no-repeat; height:54px; width:56px; position: absolute; top: 244px; 
+left: 568px; border-top-right-radius: 2px; border-bottom-right-radius: 2px; cursor: pointer;}
+
+button.black {font-size: 13px; background: -webkit-gradient( linear,left top,left bottom,from(#555),to(#333)); padding: 6px 10px 6px; color: #ddd; text-decoration: none; font-weight: bold; text-shadow: 0 -1px 1px #222; border: 1px solid #444; border-bottom: 1px solid #111; position: absolute; right: 0px; }
+button.black:hover {background: -webkit-gradient( linear,left top, left bottom,from(#666),to(#444)); color: #fff;}
+button.black:active {background: -webkit-gradient( linear, left top, left bottom,from(#555),to(#333)); color: #fff;}
+
+input.search {border: none; border-bottom: 1px solid #111;  padding: 6px 8px; font-size: 12px; font-family: Verdana; background: #ddd; background: -webkit-gradient(linear, left top, left bottom,from(#fff),to(#ddd)); color: #555; height: 17px; width: 254px;}
+
+
+.downloaded {color: #666 !important;}
+.error {}
+.leftover {}
+
+/****
+ * Scrollbars
+ ***************/
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    background: none;
+}
+::-webkit-scrollbar-track:vertical { 
+    background: #111; 
+}
+::-webkit-scrollbar-thumb {
+    width: 10px; 
+    height: 20px;
+    background: #777;
+}
+::-webkit-scrollbar-button: { 
+    display: none; 
+}  

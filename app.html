@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+	<head>
+		<link rel="stylesheet" href="assets/reset.css">
+		<link rel="stylesheet" href="assets/global.css">
+		<link rel="stylesheet" href="assets/artist.css">
+		<link rel="stylesheet" href="libs/jplayer/skin/circle.player.css">		
+	</head>
+	<body>
+	    <div id="home" class="view">
+	        <input type=text placeholder="artist name"> <div class="button"></div>
+	    </div>
+	    <div id="artist-search" class="view"></div>
+        
+		<div id="artist-overview" class="view">
+		    <div class="col1">
+		    	<div class="toolbar">
+					<input type="text" class="search" placeholder="search artist here" rel="artist"> <button class="black">Go</button>	
+				</div> 
+		    	<div class="artist-similar"></div>
+				<div class="player">
+    	            <div id="jquery_jplayer_1" class="cp-jplayer"></div>
+					<div id="cp_container_1" class="cp-container">
+						<div class="cp-buffer-holder"> <!-- .cp-gt50 only needed when buffer is > than 50% -->
+							<div class="cp-buffer-1"></div>
+							<div class="cp-buffer-2"></div>
+						</div>
+						<div class="cp-progress-holder"> <!-- .cp-gt50 only needed when progress is > than 50% -->
+							<div class="cp-progress-1"></div>
+							<div class="cp-progress-2"></div>
+						</div>
+						<div class="cp-circle-control"></div>
+						<ul class="cp-controls">
+							<li><a href="#" class="cp-play" tabindex="1">play</a></li>
+							<li><a href="#" class="cp-pause" style="display:none;" tabindex="1">pause</a></li> <!-- Needs the inline style here, or jQuery.show() uses display:inline instead of display:block -->
+						</ul>
+					</div>
+	            </div>	
+			</div>
+			<div class="col2">
+			    <div class="head"></div>
+				<div class="artist-tracks"></div>	
+			</div>	
+		    <div class="col3">		  
+				<div class="head">Tracks</div>
+		    	<div class="tracks-sources"></div>
+				<div class="head">Bitrate</div>
+				<div class="tracks-bitrate"></div>
+                <div class="head">Downloads</div>
+				<div class="downloads"></div>
+		    </div>		    
+		</div>
+		
+		<script type="application/x-shockwave-flash" src="libs/air/applicationupdater_ui.swf" />
+		<script src="libs/air/AIRAliases.js"></script>
+        <script src="assets/init.js"></script>
+        <script src="assets/helpers.js"></script>
+        
+		<script src="libs/jquery.js"></script>
+		<script src="libs/php.js"></script>
+		<script src="libs/smoothscroll.js"></script>
+
+		<script type="text/javascript" src="libs/jplayer/jquery.transform.js"></script>
+		<script type="text/javascript" src="libs/jplayer/jquery.grab.js"></script>
+		<script type="text/javascript" src="libs/jplayer/jquery.jplayer.js"></script>
+		<script type="text/javascript" src="libs/jplayer/mod.csstransforms.min.js"></script>
+		<script type="text/javascript" src="libs/jplayer/circle.player.js"></script>
+		
+		<script src="assets/LastFm.js"></script>
+		<script src="assets/Discogs.js"></script>
+		<script src="assets/Vkontakte.js"></script>
+		
+		<script src="assets/global.js"></script>
+	</body>
+</html>
