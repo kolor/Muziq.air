@@ -19,8 +19,9 @@ VK = {
 
 	onGetFiles: function(e) {
 		var data = $.parseJSON(e.target.data);
+		//air.Introspector.Console.log(data);
 		if (typeof data.error != 'undefined') {
-			vkLogin();
+			vkLogin(true);
 			return;
 		}
 		var total = data.response[0];
@@ -47,7 +48,7 @@ VK = {
 		var keys = arsort(sort, 'SORT_NUMERIC');
 		
 		var result = '';
-		for(var j=0; j<Math.min(9,keys.length); j++) {
+		for(var j=0; j<Math.min(15,keys.length); j++) {
 			var d = keys[j];
 			var count = sort[d];
 		    result += '<div class="source" data-artist="'+VK.sources[d][0].artist+'" data-title="'+VK.sources[d][0].title+'" data-duration="'+VK.sources[d][0].dur+'" data-url="'+VK.sources[d][0].url+'">';

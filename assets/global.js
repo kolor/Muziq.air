@@ -1,13 +1,6 @@
 $(function(){
-    $('#home .button').click(function(){
-        var q = $('#home input').val();
-        if (q != '') {
-            Artist_Search.find(q);
-            goToView('home','artist-search');
-        }
-    });
 	checkUpdate();
-	vkLogin();
+	vkLogin(false);
 	
 	player = new CirclePlayer("#jquery_jplayer_1", {
 		mp3: "http://airy.me/test.mp3",
@@ -21,14 +14,13 @@ $(function(){
 		if (q.val() != '') {
 			if (q.attr('rel') == 'genre') {
 				$('#artist-overview .artist-similar').empty().addClass('load4');
-				Artist_Search.findTag(q.val());
+				Artist_Overview.findTag(q.val());
 			} else if (q.attr('rel') == 'artist') {
-				Artist_Search.find(q.val());
-				goToView('artist-overview','artist-search');
+			    Artist_Overview.init(q.val());
 				$('.artist-similar, .artist-tracks, .tracks-sources, .tracks-bitrate').empty();
 			} else {
                 $('.artist-tracks, .tracks-sources, .tracks-bitrate').empty();
-                Artist_Search.findTrack(q.val());
+                Artist_Overview.findTrack(q.val());
             }
         }
 		
@@ -38,8 +30,8 @@ $(function(){
 		if (event.keyCode == '13') {
 				var q = $('#home input').val();
 	        if (q != '') {
-	            Artist_Search.find(q);
-	            goToView('home','artist-search');
+			    Artist_Overview.init(q);
+			    goToView('home','artist-overview');
 	        }
 		}
 	});
@@ -87,8 +79,7 @@ var Artist_Search = {
 		
 		$('#artist-search .artist').click(function(){
 		    Artist_Overview.similar.img = $(this).css('background-image');
-		    Artist_Overview.init($(this).attr('data-mbid'), $(this).attr('data-artist'));
-		    goToView('artist-search','artist-overview');
+
 		});
 	},
 	
@@ -96,50 +87,49 @@ var Artist_Search = {
 	    LastFm.getArtists(q);
 	},
 	
-	findTag: function(q) {
-		LastFm.getTag(q);
-	},
+
     
-    findTrack: function(q) {
-        VK.getTracks(q);
-    }
+    
 	
 	
 }
 
+var mode = 1; // 1 = play tracks, 0 = just load info
 
 var Artist_Overview = {
     artist: null,
-    mbid: null,
 	similar: {
 		artist: null,
 		img: null,
-		mbid: null
+	},
+
+	findTrack: function(q) {
+		mode = 0;
+        VK.getTracks(q);
+    },
+
+	findTag: function(q) {
+		LastFm.getTag(q);
 	},
     
-    init: function(mbid, artist){
+    init: function(artist){
 		
 		$('.artist-tracks .track').live('click', function(){
 			$('.artist-tracks .track.selected').removeClass('selected');
+			mode = 1;
 			$(this).addClass('selected');
 			VK.getFiles($(this));
 		});
 		
         this.artist = this.similar.artist =  artist;
-        this.mbid = this.similar.mbid = mbid;
         $('.artist-similar').addClass('load4');
         $('.artist-tracks').addClass('load6');
-        if (mbid == "") {
-            LastFm.getTracks(null, artist);
-            LastFm.getSimilar(null, artist);
-        } else {
-            LastFm.getTracks(mbid);
-            LastFm.getSimilar(mbid);    
-        }        
+        LastFm.getTracks(artist);
+        LastFm.getSimilar(artist);     
     },
     
     initSimilar: function(){
-        $('#artist-overview .artist-similar').prepend('<div class="similar" data-mbid="'+ this.similar.mbid +'" data-artist="'+ this.similar.artist + '" style="background-image: '+ this.similar.img +'"><div class="name">'+ this.similar.artist +'</div></div>');
+        $('#artist-overview .artist-similar').prepend('<div class="similar" data-artist="'+ this.similar.artist + '" style="background-image: '+ this.similar.img +'"><div class="name">'+ this.similar.artist +'</div></div>');
         $('#artist-overview .artist-similar .similar').hover(function(){
             $(this).find('div').animate({top:0});
         }, function(){
@@ -147,13 +137,8 @@ var Artist_Overview = {
         });
         $('.artist-similar .similar').click(function(){
             $('.artist-tracks').addClass('load6').empty();
-            Artist_Overview.mbid = $(this).attr('data-mbid'); 
             Artist_Overview.artist = $(this).attr('data-artist');
-            if (mbid == "") {
-                LastFm.getTracks(null, Artist_Overview.artist);
-            } else {
-                LastFm.getTracks(Artist_Overview.mbid);
-            }
+            LastFm.getTracks(Artist_Overview.artist);
         });
 		
         $('.artist-similar').removeClass('load4');
@@ -168,12 +153,7 @@ var Artist_Overview = {
 			Artist_Overview.similar.mbid = mbid;
 			Artist_Overview.similar.img = img;
 			$('.artist-similar').addClass('load4').empty();
-			if (mbid == null || mbid == "") {
-				LastFm.getSimilar(null, name);
-			} else {
-				LastFm.getSimilar(mbid);
-			}
-			
+			LastFm.getSimilar(name);	
 		});
 		
 		menu.addItem(new air.NativeMenuItem("Play Radio")).addEventListener(air.Event.SELECT, function(e){
@@ -200,11 +180,7 @@ var Artist_Overview = {
             $('.artist-tracks').addClass('load6').empty();
             Artist_Overview.mbid = $(this).attr('data-mbid'); 
             Artist_Overview.artist = $(this).attr('data-artist');
-            if (Artist_Overview.mbid == "") {
-                LastFm.getTracks(null, Artist_Overview.artist);
-            } else {
-                LastFm.getTracks(Artist_Overview.mbid);
-            }
+            LastFm.getTracks(Artist_Overview.artist);
         });
 		$('#artist-overview .artist-similar .similar').hover(function(){
             $(this).find('div').animate({top:0});
@@ -240,7 +216,7 @@ var Artist_Overview = {
 		});
 		
 		menu.addItem(new air.NativeMenuItem("Get More")).addEventListener(air.Event.SELECT, function(){
-			LastFm.getMoreTracks(Artist_Overview.mbid, Artist_Overview.artist);
+			LastFm.getMoreTracks(Artist_Overview.artist);
 		});
         
         menu.addItem(new air.NativeMenuItem("Mark")).addEventListener(air.Event.SELECT, function(){
@@ -262,11 +238,13 @@ var Artist_Overview = {
 	initTrackSources: function() {
 		$('.tracks-sources').removeClass('load3');
 		$('.tracks-sources .source').click(function(){
-			player.setMedia({'mp3':$(this).attr('data-url')});
-			player.play();
 			$('.tracks-sources .source.selected').removeClass('selected');
 			$(this).addClass('selected');
 			VK.getBitrate($(this).attr('data-duration'));
+			if (mode == 1) {
+				player.setMedia({'mp3':$(this).attr('data-url')});
+				player.play();
+			}
 		});
 		$('.tracks-sources .source').eq(0).click();
 	},

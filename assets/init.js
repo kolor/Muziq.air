@@ -1,14 +1,20 @@
-//air.Introspector.Console.log('1');
-
+var token = null;
 var player;
 var downloading;
 var appUpdater = new runtime.air.update.ApplicationUpdaterUI();
 var popup = null;
-var token = null;
 var fileCount = 1;
 
 window.nativeWindow.addEventListener(air.Event.CLOSE, onExit);
 window.nativeWindow.addEventListener(air.Event.CLOSING, onExit);
+
+var encToken = air.EncryptedLocalStore.getItem("token"); 
+if (encToken !== null) {
+	var token = encToken.readUTFBytes(encToken.length);
+}
+
+
+//air.Introspector.Console.log(token);
 
 function checkUpdate() {
 	appUpdater.updateURL = "http://muziq.airy.me/update.xml";
@@ -32,7 +38,10 @@ function onExit() {
 }
 
 
-function vkLogin() {
+function vkLogin(forced) {
+	if (forced == false && token !== null && token !== "") {
+		return;
+	}
 	var token_url = 'http://api.vk.com/blank.html';
 	var wndOpts = new air.NativeWindowInitOptions();
 	wndOpts.type = air.NativeWindowType.UTILITY;
@@ -47,15 +56,17 @@ function vkLogin() {
 
 function onLogin(e) {
 	var url = e.target.location.toString();
-	if (url.match(/^http:\/\/api.vk.com\/blank.html/) || url.match(/^http:\/\/api.vkontakte.ru\/blank.html/)) {
+	if (url.match(/^http:\/\/api.vk.com\/blank.html/)) {
 		e.target.removeEventListener(air.Event.COMPLETE, onLogin);
 		token = url.substring(url.indexOf('=')+1,url.indexOf('&'));
 		if (token == 'access_denied') {
-            e.target.root.nativeWindow.activate();
-        } else {
+			e.target.root.nativeWindow.activate();
+    	} else {
 			e.target.root.nativeWindow.close();
-	        //localStorage.setItem('token', token);
-        }
+	    	var bytes = new air.ByteArray();
+	    	bytes.writeUTFBytes(token);
+	    	air.EncryptedLocalStore.setItem("token", bytes);
+    	}
 	} else {
 		e.target.root.nativeWindow.activate();
 	}

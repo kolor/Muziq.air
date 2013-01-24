@@ -4,7 +4,7 @@ var LastFm = {
 	api: 'http://ws.audioscrobbler.com/2.0/?api_key=7f0ae344d4754c175067118a5975ab15&format=json&',
 	leftover: 0,
 	found: [],
-	radio: {artists:[], songs:[], timer:null},
+	radio: {artists:[], songs:[]},
 	
 	getArtists: function(q){
 		var loader = new air.URLLoader();
@@ -30,26 +30,21 @@ var LastFm = {
 			Artist_Search.init();
 	},
 	
-	getTracks: function(mbid, artist) {  
-		clearInterval(this.radio.timer);
-	    LastFm.found = [];
-        LastFm.leftover = 0;
+	getTracks: function(artist) {  
+		LastFm.found = [];
+		LastFm.leftover = 0;
 		$('.artist-tracks').empty();
-        $('.col2 .head').text(Artist_Overview.artist);
+		$('.col2 .head').text(Artist_Overview.artist);
 		var loader = new air.URLLoader();
 		loader.addEventListener(air.Event.COMPLETE, LastFm.onGetTracks);
-	    if (mbid == null) {
-			loader.load(new air.URLRequest(this.api+'method=artist.gettoptracks&artist='+ artist.enc() +'&autocorrect=1&limit=100'));	
-	    } else {
-			loader.load(new air.URLRequest(this.api+'method=artist.gettoptracks&mbid='+ mbid +'&limit=100'));  
-	    }
-         
+	  	loader.load(new air.URLRequest(this.api+'method=artist.gettoptracks&artist='+ artist.enc() +'&autocorrect=1&limit=100'));	        
     },
     
     onGetTracks: function(e) {
         var result = ''; 
         var data = $.parseJSON(e.target.data);
         if (typeof data.error != 'undefined') {
+	    air.Introspector.Console.log(data.error);
             return;
         }
         $(data.toptracks.track).each(function(){
@@ -66,25 +61,17 @@ var LastFm = {
         Artist_Overview.initTracks();
     },
 	
-	getMoreTracks: function(mbid, artist) {
+	getMoreTracks: function(artist) {
 		var loader = new air.URLLoader();
 		loader.addEventListener(air.Event.COMPLETE, LastFm.onGetTracks);
-	    if (mbid == null) {
-			loader.load(new air.URLRequest(this.api+'method=artist.gettoptracks&artist='+ artist.enc() +'&autocorrect=1&limit=100&page=2'));	
-	    } else {
-			loader.load(new air.URLRequest(this.api+'method=artist.gettoptracks&mbid='+ mbid +'&limit=100&page=2'));  
-	    }
+	   	loader.load(new air.URLRequest(this.api+'method=artist.gettoptracks&artist='+ artist.enc() +'&autocorrect=1&limit=100&page=2'));	
 	},
     
     
-    getSimilar: function(mbid, artist) {
+    getSimilar: function(artist) {
 		var loader = new air.URLLoader();
 		loader.addEventListener(air.Event.COMPLETE, LastFm.onGetSimilar);
-	    if (mbid == null) {
-			loader.load(new air.URLRequest(this.api+'method=artist.getsimilar&artist='+ artist.enc() +'&autocorrect=1&limit=71'));	
-	    } else {
-			loader.load(new air.URLRequest(this.api+'method=artist.getsimilar&mbid='+ mbid +'&limit=71'));  
-	    }         
+	   	loader.load(new air.URLRequest(this.api+'method=artist.getsimilar&artist='+ artist.enc() +'&autocorrect=1&limit=71'));	    
     },
     
     onGetSimilar: function(e) {
@@ -119,10 +106,9 @@ var LastFm = {
 	
 	
 	playRadio: function(artists) {
-		clearInterval(this.radio.timer);
 		this.radio.artists = shuffle(artists);
 		LastFm.getRadioArtist(LastFm.radio.artists.shift());
-		this.radio.timer = setInterval(function(){
+		setInterval(function(){
 			if (LastFm.radio.artists.length > 0) {
 				LastFm.getRadioArtist(LastFm.radio.artists.shift());
 			}
