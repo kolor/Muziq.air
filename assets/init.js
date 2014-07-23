@@ -10,7 +10,7 @@ window.nativeWindow.addEventListener(air.Event.CLOSING, onExit);
 
 var encToken = air.EncryptedLocalStore.getItem("token"); 
 if (encToken !== null) {
-	var token = encToken.readUTFBytes(encToken.length);
+	token = encToken.readUTFBytes(encToken.length);
 }
 
 

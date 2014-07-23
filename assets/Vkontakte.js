@@ -11,6 +11,7 @@ VK = {
 		this.artist = t.attr('data-artist');
 		this.title = t.attr('data-title'); 
 		var q = this.cleanArgs(this.artist+' '+this.title);
+    //air.Introspector.Console.log(q);
 		var loader = new air.URLLoader();
 		loader.addEventListener(air.Event.COMPLETE, VK.onGetFiles);
         if (token == null) return;
@@ -21,6 +22,7 @@ VK = {
 		var data = $.parseJSON(e.target.data);
 		//air.Introspector.Console.log(data);
 		if (typeof data.error != 'undefined') {
+			air.Introspector.Console.log(data);
 			vkLogin(true);
 			return;
 		}
@@ -108,6 +110,7 @@ VK = {
 	},
 	
 	cleanArgs: function(q) {	
+        q = q.replace(/(\- | \-|\(|\)|\[|\]|\{|\})+/g,''); // remove bracket leftovers
 		q = encodeURIComponent(q);
 		return q;
 	}

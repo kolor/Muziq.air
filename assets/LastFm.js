@@ -34,7 +34,7 @@ var LastFm = {
 		LastFm.found = [];
 		LastFm.leftover = 0;
 		$('.artist-tracks').empty();
-		$('.col2 .head').text(Artist_Overview.artist);
+		$('.col2 .head').eq(2).text(Artist_Overview.artist);
 		var loader = new air.URLLoader();
 		loader.addEventListener(air.Event.COMPLETE, LastFm.onGetTracks);
 	  	loader.load(new air.URLRequest(this.api+'method=artist.gettoptracks&artist='+ artist.enc() +'&autocorrect=1&limit=100'));	        
@@ -164,7 +164,7 @@ var LastFm = {
         str = str.replace(/( feat| ft\.| vocals by| vip).*/gi,''); // remove (this) and everything after
         str = str.replace(/^(0[1-9]|10|11|12) /gi,'');
         str = str.replace(/(full version|remix|remi| mix|rmx| edit)/gi,''); //remove (this)
-        str = str.replace(/(mp3|wav|flac|ogg)/gi,'');
+        str = str.replace(/(mp3|flac|ogg)/gi,'');
         return cleanName(str);
 	}
 	

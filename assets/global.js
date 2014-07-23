@@ -17,7 +17,9 @@ $(function(){
 				Artist_Overview.findTag(q.val());
 			} else if (q.attr('rel') == 'artist') {
 			    Artist_Overview.init(q.val());
-				$('.artist-similar, .artist-tracks, .tracks-sources, .tracks-bitrate').empty();
+				$('.artist-similar, .artist-releases, .artist-tracks, .tracks-sources, .tracks-bitrate').empty();
+			} else if (q.attr('rel') == 'albums') {
+				Discogs.findArtist(q.val());
 			} else {
                 $('.artist-tracks, .tracks-sources, .tracks-bitrate').empty();
                 Artist_Overview.findTrack(q.val());
@@ -35,6 +37,14 @@ $(function(){
 	        }
 		}
 	});
+    
+            // track click handler
+		$('.artist-tracks .track').live('click', function(){
+			$('.artist-tracks .track.selected').removeClass('selected');
+			mode = 1;
+			$(this).addClass('selected');
+			VK.getFiles($(this));
+		});
     
     // init small search box
     
@@ -111,21 +121,22 @@ var Artist_Overview = {
 	findTag: function(q) {
 		LastFm.getTag(q);
 	},
+
+	findAlbums: function(q) {
+		Discogs.findArtist(q);
+	},
     
     init: function(artist){
 		
-		$('.artist-tracks .track').live('click', function(){
-			$('.artist-tracks .track.selected').removeClass('selected');
-			mode = 1;
-			$(this).addClass('selected');
-			VK.getFiles($(this));
-		});
+
 		
         this.artist = this.similar.artist =  artist;
         $('.artist-similar').addClass('load4');
         $('.artist-tracks').addClass('load6');
+        $('.artist-releases').addClass('load6');
         LastFm.getTracks(artist);
         LastFm.getSimilar(artist);     
+        Discogs.findArtist(artist);
     },
     
     initSimilar: function(){
@@ -137,8 +148,12 @@ var Artist_Overview = {
         });
         $('.artist-similar .similar').click(function(){
             $('.artist-tracks').addClass('load6').empty();
+            $('.artist-releases').addClass('load6').empty();
+            $('.col2 .head').eq(1).text('Albums');
+            $('.col2 .head').eq(2).text('Top Tracks');
             Artist_Overview.artist = $(this).attr('data-artist');
             LastFm.getTracks(Artist_Overview.artist);
+            Discogs.findArtist(Artist_Overview.artist);
         });
 		
         $('.artist-similar').removeClass('load4');

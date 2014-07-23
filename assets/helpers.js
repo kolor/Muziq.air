@@ -41,6 +41,7 @@ function lc(q) {
 }
 
 function cap(str) {
+    return str;
   return str.replace( /(^|\s|\.)(.)/g , function(m,p1,p2){ return p1+p2.toUpperCase(); } );
 };
 
