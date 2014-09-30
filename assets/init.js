@@ -4,6 +4,7 @@ var downloading;
 var appUpdater = new runtime.air.update.ApplicationUpdaterUI();
 var popup = null;
 var fileCount = 1;
+var existingFiles = "";
 
 window.nativeWindow.addEventListener(air.Event.CLOSE, onExit);
 window.nativeWindow.addEventListener(air.Event.CLOSING, onExit);
@@ -51,7 +52,7 @@ function vkLogin(forced) {
 	wnd.window.nativeWindow.height = 280;
 	wnd.window.nativeWindow.width = 490;
 	wnd.addEventListener(air.Event.COMPLETE, onLogin);
-	wnd.load(new air.URLRequest('http://api.vk.com/oauth/authorize?client_id=1902594&scope=24&display=popup&response_type=token&redirect_uri='+token_url));
+	wnd.load(new air.URLRequest('http://api.vk.com/oauth/authorize?client_id=1918220&scope=24&display=popup&response_type=token&redirect_uri='+token_url));
 }
 
 function onLogin(e) {
@@ -72,7 +73,6 @@ function onLogin(e) {
 	}
 		
 }
-
 
 function download(url, filename) {
 	fileName = cleanFile(filename)+'.mp3';
@@ -110,10 +110,16 @@ function download(url, filename) {
     	progress.remove();
     
     }
-    
-      downpath = air.File.desktopDirectory.resolvePath('Muziq');
-	  downpath.createDirectory();
-	  var file = downpath.resolvePath(fileName);
+    	
+    downpath = new air.File()
+	downpath.nativePath = "M:\\Muziq\\";
+	downpath.createDirectory();
+
+	if (lc(existingFiles).indexOf(fileName) === -1) {
+		existingFiles += lc(fileName) + " ";	
+	}	
+
+	var file = downpath.resolvePath(fileName);
       if (file.exists) {
           fileName = fileName +'_'+ fileCount++;
           file = downpath.resolvePath(fileName);
@@ -131,4 +137,28 @@ function download(url, filename) {
 
   	  urlStream.load(new air.URLRequest(url));
 	  
+}
+
+function indexExistingFiles(artist)
+{
+	existingFiles = "";
+	var dir = new air.File;
+	dir.nativePath = "M:\\Muziq\\";
+	var contents = dir.getDirectoryListing();  
+	$.each(contents, function(i,f){
+		if (lc(f.name).indexOf(lc(artist)) > -1) {
+			existingFiles += lc(f.name) + " ";	
+		}		
+	});
+}
+
+function markExistingFiles()
+{
+	$('.artist-tracks .track').each(function(k,v){
+		if (existingFiles.indexOf(lc($(v).data('title')))>-1) {
+			$(this).addClass('bold');
+		}
+	});
+	
+
 }

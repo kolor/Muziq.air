@@ -11,17 +11,20 @@ var Discogs = {
         q = encodeURIComponent(q);
 		var loader = new air.URLLoader();
 		loader.addEventListener(air.Event.COMPLETE, Discogs.onFindArtist);
+//air.Introspector.Console.log(this.api+'database/search?type=artist&q='+q);
 	    loader.load(new air.URLRequest(this.api+'database/search?type=artist&q='+q));	
     },
 
     onFindArtist: function(e) {
 
         var data = $.parseJSON(e.target.data);
+        /*
         $(data.results).each(function(){
-            if (lc(this.title) === lc(Discogs.artist)) {
+            if (lc(Discogs.artist).indexOf(lc(this.title))>-1) {
                 Discogs.artistUrl = this.resource_url;
             }
-        });
+        });*/
+        Discogs.artistUrl = data.results[0].resource_url;
         if (Discogs.artistUrl !== null) {
             var loader = new air.URLLoader();
             loader.addEventListener(air.Event.COMPLETE, Discogs.onGetReleases);
@@ -34,6 +37,7 @@ var Discogs = {
     onGetReleases: function(e) {
         var results = '';
 		var data = $.parseJSON(e.target.data);
+        data.releases.reverse();
         $(data.releases).each(function(){
             if (this.role === "Main") {
                 if (typeof this.year === undefined) {
@@ -67,6 +71,7 @@ var Discogs = {
             results += '<div class="track" data-artist="'+ Discogs.artist +'" data-title="'+ cap(this.title) +'">'+ cap(this.title)+"<i>"+ this.duration +"</i></div>";
         });
         $('.artist-tracks').append(results);
+        Artist_Overview.initTracks();
     },
     
     sortAlpha: function(a,b) {  

@@ -8,7 +8,7 @@ body > div#home {left: 0;}
 .hide {display: none;}
 .lt {float: left;}
 .rt {float: right;}
-.bold {font-weight: bold;}
+.bold {color: #777 !important;}
 
 input:focus {outline:0;}
 

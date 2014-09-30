@@ -1,6 +1,6 @@
 $(function(){
-	checkUpdate();
 	vkLogin(false);
+
 	
 	player = new CirclePlayer("#jquery_jplayer_1", {
 		mp3: "http://airy.me/test.mp3",
@@ -127,9 +127,6 @@ var Artist_Overview = {
 	},
     
     init: function(artist){
-		
-
-		
         this.artist = this.similar.artist =  artist;
         $('.artist-similar').addClass('load4');
         $('.artist-tracks').addClass('load6');
@@ -137,6 +134,7 @@ var Artist_Overview = {
         LastFm.getTracks(artist);
         LastFm.getSimilar(artist);     
         Discogs.findArtist(artist);
+        indexExistingFiles(artist);
     },
     
     initSimilar: function(){
@@ -211,6 +209,8 @@ var Artist_Overview = {
         $('.artist-tracks').removeClass('load6');		
 		var menu = new air.NativeMenu();
         var target = null;
+
+      
 		
 		menu.addItem(new air.NativeMenuItem("Sort A-Z")).addEventListener(air.Event.SELECT, function(){
 			var sel = $('.artist-tracks .track');
@@ -248,6 +248,7 @@ var Artist_Overview = {
 		}
 		
 		$('.artist-tracks .track').bind('contextmenu', showMenu);
+		  markExistingFiles();
     },
 	
 	initTrackSources: function() {
