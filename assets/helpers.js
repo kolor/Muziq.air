@@ -1,6 +1,30 @@
 String.prototype.lc = String.prototype.toLowerCase;
 String.prototype.enc = function(){return encodeURIComponent(this)};
 
+function defined(obj) {
+    if (typeof obj === "undefined")
+        return false;
+    if (obj === null)
+        return false;
+    return true;
+}
+
+function error(msg) {
+    $('#error p').text(msg);
+    $('#error').popup().popup('open');
+}
+
+function empty(obj) {
+    if (obj === "") {
+        return true;
+    }
+    if (obj.length === 0) {
+        return true;
+    }
+    return false;
+}
+
+
 function goToView(from, to) {
 	$('#'+to).css('left','800px');
 	$('#'+from).animate({left: -800});

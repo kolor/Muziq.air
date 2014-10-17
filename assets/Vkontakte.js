@@ -22,8 +22,11 @@ VK = {
 		var data = $.parseJSON(e.target.data);
 		//air.Introspector.Console.log(data);
 		if (typeof data.error != 'undefined') {
-			air.Introspector.Console.log(data);
+			//air.Introspector.Console.log(data);
 			vkLogin(true);
+			setTimeout(function(){
+				$('.track.selected').click();
+			}, 2000);
 			return;
 		}
 		var total = data.response[0];

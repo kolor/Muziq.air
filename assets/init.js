@@ -112,7 +112,7 @@ function download(url, filename) {
     }
     	
     downpath = new air.File()
-	downpath.nativePath = "M:\\Muziq\\";
+	downpath.nativePath = DOWNLOAD_FOLDER;
 	downpath.createDirectory();
 
 	if (lc(existingFiles).indexOf(fileName) === -1) {
@@ -143,7 +143,7 @@ function indexExistingFiles(artist)
 {
 	existingFiles = "";
 	var dir = new air.File;
-	dir.nativePath = "M:\\Muziq\\";
+	dir.nativePath = DOWNLOAD_FOLDER;
 	var contents = dir.getDirectoryListing();  
 	$.each(contents, function(i,f){
 		if (lc(f.name).indexOf(lc(artist)) > -1) {
