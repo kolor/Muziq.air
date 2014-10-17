@@ -22,7 +22,7 @@ var Discogs = {
            var img = $(v).find('.card_image img').attr('src');
            var txt = $(v).find('.card_body h4 a').text();
            if (img !== "http://s.pixogs.com/images/default-artist.png") {
-                if (txt.indexOf(Discogs.artist) > -1) {
+                if (txt.lc().indexOf(Discogs.artist.lc()) > -1) {
                     id = $(v).data('object-id');
                     return false;
                 }

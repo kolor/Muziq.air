@@ -1,6 +1,6 @@
 html {background: black;}
-body {background: white; height: 700px; width: 850px;}
-body > div.view {background: white; width: 850px; height: 700px; position: fixed; background: black; left: -850px;}
+body {background: white; height: 660; width: 740px;} /* w+6 h+28 */
+body > div.view {background: white; width: 740px; height: 660px; position: fixed; background: black; left: -850px;}
 body > div#home {left: 0;}
 
 .load4 {background: url(img/loader-444.gif) no-repeat center center;}
@@ -12,10 +12,7 @@ body > div#home {left: 0;}
 
 input:focus {outline:0;}
 
-.player .cp-container {left: 75px; top: 10px;}
-
-#home input {border:4px solid #1BA6F1; border-radius:6px 6px 6px 6px; font-size:32px; left:220px; padding:8px 10px; 
-position:absolute; top:300px; width:400px;}
+#home input {border: 8px solid #1C303A; font-size:32px; left:156px; padding:8px 10px; position:absolute; top:270px; width:400px;}
 #home div.button {background:url("img/magnifier.png") no-repeat; height:54px; width:56px; position: absolute; top: 244px; 
 left: 568px; border-top-right-radius: 2px; border-bottom-right-radius: 2px; cursor: pointer;}
 
@@ -23,7 +20,8 @@ button.black {font-size: 13px; background: -webkit-gradient( linear,left top,lef
 button.black:hover {background: -webkit-gradient( linear,left top, left bottom,from(#666),to(#444)); color: #fff;}
 button.black:active {background: -webkit-gradient( linear, left top, left bottom,from(#555),to(#333)); color: #fff;}
 
-input.search {border: none; border-bottom: 1px solid #111;  padding: 6px 8px; font-size: 12px; font-family: Verdana; background: #ddd; background: -webkit-gradient(linear, left top, left bottom,from(#fff),to(#ddd)); color: #555; height: 17px; width: 254px;}
+input.search {border: none; border-bottom: 1px solid #111;  padding: 6px 8px; font-size: 11px; font-family: Verdana; background: #ddd; background: -webkit-gradient(linear, left top, left bottom,from(#fff),to(#ddd)); 
+	color: #555; height: 17px; width: 200px;}
 
 
 .downloaded {color: #666 !important;}
@@ -49,3 +47,9 @@ input.search {border: none; border-bottom: 1px solid #111;  padding: 6px 8px; fo
 ::-webkit-scrollbar-button: { 
     display: none; 
 }  
+
+
+@font-face {
+    font-family: Roboto;
+    src: url(roboto.ttf);
+}

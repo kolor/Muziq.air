@@ -1,20 +1,23 @@
-.col1 {width: 310px; float: left;}
-.col2 {width: 300px; float: left;}
-.col3 {width: 240px; float: left;}
+.col1 {width: 250px; float: left;}
+.col2 {width: 270px; float: left;}
+.col3 {width: 220px; float: left;}
 
 .toolbar {height: 30px; background: #222; position: relative;}
 
 #artist-search .artist {float: left; width: 200px; height: 200px; background-position:50% 50%; background-repeat:no-repeat; background-size: cover; position: relative; overflow: hidden; cursor: pointer;}
 #artist-search .artist .info {background:rgba(255, 255, 255, 0.7); bottom:-100px; color:#333333; font-size:17px; font-weight:bold; padding:7px; position:absolute; text-align:center; text-shadow:0 0 1px #bbb; width:186px;}
- 
-.artist-similar {background-color: #444; height: 500px; width: 310px; overflow: auto;}
-.player {background: #222; width: 310px; height: 170px;}
 
-.head {background: #232323; color: #EEE;padding: 5px 0 5px; text-align:center; font-size: 13px; font-family: Georgia; font-weight: bold;}
+
+.player {background: #222; height: 152px;}
+.player .cp-container {left: 50px;}
+
+.head {background: #232323; color: #EEE; padding: 4px 0; text-align:center; font-size: 12px; font-family: Roboto; font-weight: bold;}
+.col2 .head {background: #131313;}
+.artist-tracks .head {background: #333; color: #EEE;}
 
 
 .downloads {background: #444;}
-.downloads {background: #444; height: 108px; overflow: auto;}
+.downloads {background: #444; height: 113px; overflow: auto;}
 .downloads div {background: url(img/download2.gif) no-repeat !important; color: #fff !important; background-size: 1% 100%; padding: 5px; font-family: Verdana; border-bottom: 1px solid #333; font-size: 11px; text-shadow: 0 0 1px #333; white-space: nowrap; width: 100%; overflow: hidden; text-overflow: ellipsis;}
 
 .artist-info h3 {color: #FFD; text-shadow: 0 0 1px #333; font-size: 21px; border-bottom: 1px solid; margin-bottom: 4px; font-family: Georgia;}
@@ -25,34 +28,50 @@
 .artist-info .links a {margin-right: 10px; cursor: pointer;}
 .artist-info .links a:hover {border-bottom: 1px dashed;}
 
-.artist-releases {background-color: #333338; height: 290px; overflow-y: scroll;}
-.artist-releases .release {padding: 5px; background: #333338; color: #bbb; text-shadow: 0 0 1px #555; border-bottom: 1px solid #555; cursor: pointer; font-family: Verdana; font-size: 12px;}
+
+.artist-similar {background-color: #444; height: 480px; width: 250px; overflow: auto;}
+.artist-similar .similar {background-repeat:no-repeat; background-size:cover; float:left;  height:80px;
+ width:80px;  overflow: hidden; cursor: pointer;}
+.artist-similar .similar div {background: rgba(255, 255, 255, 0.7); text-align: center; font-size: 11px; position: relative; top: -60px; padding: 4px 2px;}
+
+
+
+.artist-releases {background-color: #333338; height: 270px; overflow-y: scroll; overflow-x: hidden;}
+.artist-releases .release {width: 260px; padding: 4px; background: #333338; color: #bbb; text-shadow: 0 0 1px #555; 
+		border-bottom: 1px solid #555; cursor: pointer; font-family: Verdana; font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 .artist-releases .release:hover {color: #ccc;}
 .artist-releases .release.selected {background: #AAA; color: #333; text-shadow: 0 0 1px #CCC;}
 
-.artist-tracks {background-color: #333338; height: 360px; width: 300px; overflow: auto;}
 
-.col2 .head {background: #131313;}
-.artist-tracks .head {background: #333; color: #EEE;padding: 5px; text-align:center; font-size: 13px; font-family: Georgia; font-weight: bold;}
-.artist-tracks .track, .artist-tracks .source {padding: 5px; background: #333338; color: #bbb; text-shadow: 0 0 1px #555; border-bottom: 1px solid #555; cursor: pointer; font-family: Verdana; font-size: 12px;}
-.artist-tracks .track:hover {color: #ccc;}
-.artist-tracks .track.selected {background: #AAA; color: #333; text-shadow: 0 0 1px #CCC;}
-.artist-tracks .track i {float: right; font-size: 9px; padding-top: 2px;}
+/* general for all rows */
+.artist-releases .release,
+.artist-tracks .track,
+.tracks-sources .source,
+.tracks-bitrate .bitrate {cursor: pointer; font-family: Roboto; font-size: 12px; padding: 5px; color: #ccc; text-shadow: 0 0 1px #555;}
 
-.artist-similar .similar {background-repeat:no-repeat; background-size:cover; float:left;  height:100px;
- width:100px;  overflow: hidden; cursor: pointer;}
-.artist-similar .similar div {background: rgba(255, 255, 255, 0.7); text-align: center; font-size: 13px; position: relative; top: -60px; padding: 4px 2px;}
+.artist-releases .release.selected,
+.artist-tracks .track.selected,
+.tracks-sources .source.selected,
+.tracks-bitrate .bitrate.selected {background: #aaa; color: #333; text-shadow: 0 0 1px #ccc;} 
 
 
-.tracks-sources {width: 240px; height: 290px; background: #444; overflow: auto;}
+/* tracks */
+.artist-tracks {background-color: #333338; height: 346px; overflow: auto;}
+.artist-tracks .track {background: #333338; border-bottom: 1px solid #444;}
+.artist-tracks .track i {float: right; font-size: 10px; padding-top: 2px;}
+ 
+/* sources */
+.tracks-sources {height: 270px; background: #444; overflow: auto;}
+.tracks-sources .source {overflow: hidden; background: #444; border-bottom: 1px solid #555;}
+.tracks-sources .source .title {white-space: nowrap; float: left; width: 165px; overflow: hidden; text-overflow: ellipsis; font-size: 12px;}
+.tracks-sources .source .time {width: 35px; float: right; text-align: right; font-size: 11px;}
 
-.tracks-sources .source {color: #333; overflow: hidden; padding: 5px; cursor: pointer; background: #444; font-family: Verdana; border-bottom: 1px solid #555; font-size: 11px; color: #ccc; text-shadow: 0 0 1px #333;}
-.tracks-sources .source:hover {color: #ccc;}
-.tracks-sources .source.selected {background: #AAA; color: #333; text-shadow: 0 0 1px #CCC;}
-.tracks-sources .source .title {white-space: nowrap; float: left; width: 175px; overflow: hidden; text-overflow: ellipsis; font-size: 12px;}
-.tracks-sources .source .time {width: 45px; float: right; text-align: right;}
+/* bitrates */ 
 
+.tracks-bitrate {height: 210px; background: #444; overflow: auto;}
+.tracks-bitrate .bitrate {padding-top: 6px; overflow: hidden; background: #444; border-bottom: 1px solid #555; font-size: 11px;}
+
+
+/*(
 .artist-player .player {background: #222; width: 310px; height: 100px; float: left;}
-
-.tracks-bitrate {width: 240px; height: 225px; background: #444; overflow: auto;}
-.tracks-bitrate .bitrate {cursor: pointer; color: #333; overflow: hidden; padding: 5px; background: #444; font-family: Verdana; border-bottom: 1px solid #555; font-size: 11px; color: #ccc; text-shadow: 0 0 1px #333;}}
+*/
