@@ -20,13 +20,16 @@ VK = {
 
 	onGetFiles: function(e) {
 		var data = $.parseJSON(e.target.data);
-		//air.Introspector.Console.log(data);
-		if (typeof data.error != 'undefined') {
-			//air.Introspector.Console.log(data);
+		if (defined(data.error)) {
 			vkLogin(true);
 			setTimeout(function(){
 				$('.track.selected').click();
 			}, 2000);
+			return;
+		}
+
+		if (!defined(data) || data.response[0] == 0 || empty(data.response)) {
+			$('.track.selected').next().click();
 			return;
 		}
 		var total = data.response[0];
@@ -52,6 +55,11 @@ VK = {
 		}
 		var keys = arsort(sort, 'SORT_NUMERIC');
 		
+		if (empty(VK.sources)) {
+			$('.track.selected').next().click();
+			return;
+		}
+
 		var result = '';
 		for(var j=0; j<Math.min(15,keys.length); j++) {
 			var d = keys[j];
@@ -97,6 +105,9 @@ VK = {
 			var d = el.attr('data-duration');
 			var s = e.bytesTotal;
 			var b = 8*(s/1024)/d;
+			if (b > 380) {
+				el.remove();
+			}
 			el.attr('data-bitrate',b).html(mkTime(d) +' @ '+ (e.bytesTotal/1048576).toFixed(1) +' Mb = '+ b.toFixed(1) +' kbps');
 			loader.close();
 		}        

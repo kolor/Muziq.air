@@ -130,7 +130,6 @@ var Artist_Overview = {
         this.artist = this.similar.artist =  artist;
         $('.artist-similar').addClass('load4');
         $('.artist-tracks').addClass('load6');
-        $('.artist-releases').addClass('load6');
         LastFm.getTracks(artist);
         LastFm.getSimilar(artist);     
         Discogs.findArtist(artist);
@@ -257,21 +256,25 @@ var Artist_Overview = {
 			$('.tracks-sources .source.selected').removeClass('selected');
 			$(this).addClass('selected');
 			VK.getBitrate($(this).attr('data-duration'));
-			if (mode == 1) {
-				player.setMedia({'mp3':$(this).attr('data-url')});
-				player.play();
-			}
 		});
 		$('.tracks-sources .source').eq(0).click();
 	},
 	
 	initTrackBitrate: function() {
-		$('.tracks-bitrate .bitrate').click(function(){
-			VK.getBitrateInfo($(this));
+		$('.tracks-bitrate .bitrate').live('click', function(){
+			$('.tracks-bitrate .bitrate.selected').removeClass('selected');
+			$(this).addClass('selected');
+			//VK.getBitrate($(this).attr('data-duration'));
+			player.setMedia({'mp3':$(this).attr('data-url')});
+			player.play();
 		});
+
+		var it = $('.tracks-bitrate .bitrate').length;
+
 		$('.tracks-bitrate .bitrate').each(function(){
 			setTimeout(function(el){
-				el.click();
+				//el.click();
+				VK.getBitrateInfo(el);
 			}($(this)), 50);
 		});
 		setTimeout(function(){
@@ -281,6 +284,7 @@ var Artist_Overview = {
 			});
 			$('.tracks-bitrate').html(sel);
 			Artist_Overview.initTrackDownload();
+			$('.tracks-bitrate .bitrate').eq(0).click();
 		}, 2000);
 	},
 	

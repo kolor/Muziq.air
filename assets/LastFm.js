@@ -160,9 +160,8 @@ var LastFm = {
 	
 	cleanTrackName: function(str) {
         str = trimBrackets(str);
-        str = str.replace(/[\w]+ (remix|mix|rmx|edit).*/gi,''); // remove (this), 1 word before and everything after
+        str = str.replace(/(remix|rmx|edit).*/gi,''); // remove (this), 1 word before and everything after
         str = str.replace(/( feat| ft\.| vocals by| vip).*/gi,''); // remove (this) and everything after
-        str = str.replace(/^(0[1-9]|10|11|12) /gi,'');
         str = str.replace(/(full version|remix|remi| mix|rmx| edit)/gi,''); //remove (this)
         str = str.replace(/(mp3|flac|ogg)/gi,'');
         return cleanName(str);

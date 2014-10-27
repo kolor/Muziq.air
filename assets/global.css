@@ -8,7 +8,6 @@ body > div#home {left: 0;}
 .hide {display: none;}
 .lt {float: left;}
 .rt {float: right;}
-.bold {color: #777 !important;}
 
 input:focus {outline:0;}
 
@@ -24,7 +23,7 @@ input.search {border: none; border-bottom: 1px solid #111;  padding: 6px 8px; fo
 	color: #555; height: 17px; width: 200px;}
 
 
-.downloaded {color: #666 !important;}
+
 .error {}
 .leftover {}
 

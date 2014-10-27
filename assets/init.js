@@ -144,6 +144,7 @@ function indexExistingFiles(artist)
 	existingFiles = "";
 	var dir = new air.File;
 	dir.nativePath = DOWNLOAD_FOLDER;
+	dir.createDirectory();
 	var contents = dir.getDirectoryListing();  
 	$.each(contents, function(i,f){
 		if (lc(f.name).indexOf(lc(artist)) > -1) {

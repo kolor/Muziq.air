@@ -51,6 +51,7 @@
 
 .artist-releases .release.selected,
 .artist-tracks .track.selected,
+.artist-tracks .track.selected em,
 .tracks-sources .source.selected,
 .tracks-bitrate .bitrate.selected {background: #aaa; color: #333; text-shadow: 0 0 1px #ccc;} 
 
@@ -59,19 +60,24 @@
 .artist-tracks {background-color: #333338; height: 346px; overflow: auto;}
 .artist-tracks .track {background: #333338; border-bottom: 1px solid #444;}
 .artist-tracks .track i {float: right; font-size: 10px; padding-top: 2px;}
+.artist-tracks .track em {font-size: 10px; color: #ddd;}
  
 /* sources */
-.tracks-sources {height: 270px; background: #444; overflow: auto;}
+.tracks-sources {height: 270px; background: #444; overflow: auto; border-left: 1px solid #111;}
 .tracks-sources .source {overflow: hidden; background: #444; border-bottom: 1px solid #555;}
 .tracks-sources .source .title {white-space: nowrap; float: left; width: 165px; overflow: hidden; text-overflow: ellipsis; font-size: 12px;}
-.tracks-sources .source .time {width: 35px; float: right; text-align: right; font-size: 11px;}
+.tracks-sources .source .time {width: 33px; float: right; text-align: right; font-size: 11px;}
 
 /* bitrates */ 
 
-.tracks-bitrate {height: 210px; background: #444; overflow: auto;}
+.tracks-bitrate {height: 210px; background: #444; overflow: auto; border-left: 1px solid #111;}
 .tracks-bitrate .bitrate {padding-top: 6px; overflow: hidden; background: #444; border-bottom: 1px solid #555; font-size: 11px;}
 
 
 /*(
 .artist-player .player {background: #222; width: 310px; height: 100px; float: left;}
 */
+
+/* track markings */
+
+.bold, .downloaded, .bold em, .downloaded em {color: #777 !important;}
