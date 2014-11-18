@@ -1,3 +1,20 @@
+var menuTarget = null;
+
+function makeMenu(selector, items) {
+    var id = new Date().getTime();
+        var menu = new air.NativeMenu();
+        for(var i=0; i<items.length; i++) {
+            menu.addItem(new air.NativeMenuItem(items[i].title))
+                .addEventListener(air.Event.SELECT, items[i].fn);
+        }       
+
+        function showMenu(e) {
+            menuTarget = $(e.currentTarget);
+            menu.display(window.nativeWindow.stage, e.clientX, e.clientY); 
+        }
+        $(selector).bind('contextmenu', showMenu);
+}
+
 String.prototype.lc = String.prototype.toLowerCase;
 String.prototype.enc = function(){return encodeURIComponent(this)};
 

@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <application xmlns="http://ns.adobe.com/air/application/2.0">
 	<id>com.airy.muziq</id>
-	<version>2.3</version>
+	<version>3.1</version>
 	<filename>Muziq</filename>
-    <name>Muziq 2</name>
+    <name>Muziq 3</name>
     <description>Software for a truly music lover</description>
 	<copyright>www.airy.me (c) 2012</copyright>
 	<initialWindow>
 		<x>300</x>
-		<y>100</y>
+		<y>20</y>
 	  <systemChrome>standard</systemChrome>
 		<resizable>false</resizable>
 		<title>Airy Muziq 2</title>
 		<visible>true</visible>
 		<content>app.html</content>
 		<width>746</width>
-		<height>668</height>
+		<height>688</height>
 	<transparent>false</transparent>
 </initialWindow>
 	<icon>
