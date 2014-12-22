@@ -1,5 +1,4 @@
 //air.Introspector.Console.log(q);
-
 var Discogs = {
 	api: "http://api.discogs.com/",
 	found: [],
@@ -7,47 +6,33 @@ var Discogs = {
 	artistUrl: null,
 
 	findArtist: function(q) {
-		this.found = [];
-		this.artist = q;
-		this.artistUrl = null;
+		this.found = []; this.artist = q; this.artistUrl = null;
+
 		q = encodeURIComponent(q);
 		$('.artist-albums').addClass('load6');
+		//var url = new air.URLRequest('http://www.discogs.com/search/?type=artist&layout=med&q='+q);
+		var url = new air.URLRequest('https://www.google.com.mt/search?q=site:discogs.com+'+q);
 		var loader = new air.URLLoader();
 		loader.addEventListener(air.Event.COMPLETE, Discogs.onFindArtist);
-		//loader.load(new air.URLRequest('http://muziq.apps.dj/dc.php?q='+q));  
-		loader.load(new air.URLRequest('http://www.discogs.com/search/?type=artist&layout=med&q='+q));	
-
+		loader.load(url);	
 	},
 
 	onFindArtist: function(e) {
+		//air.Introspector.Console.log(e.target.data);
 		var html = e.target.data;
-		var cards = $(html).find('div.card');
-		if (empty(cards)) {
-			$('.dc-albums').removeClass('load4');
-			return;
-		}
-		var id = null;
-		var next = null;
-		var first = $(html).find('div.card').eq(0).data('object-id');
-		cards.each(function(k,v){
-			var img = $(v).find('.card_image img').attr('src');
-			var txt = $(v).find('.card_body h4 a').text();
-			if (txt.lc().indexOf(Discogs.artist.lc()) > -1) {
-				if (img !== "http://s.pixogs.com/images/default-artist.png") {
-					id = $(v).data('object-id');
-					return false;     
-				} else {
-					next = $(v).data('object-id');
-				}
+		var urls = $(html).find('#res cite');	
+		$(urls).each(function(k,v){
+			var re = $(v).text().match(/discogs.com\/artist\/(\d*)-/);
+			if (defined(re[1])) {
+				Discogs.getReleases(re[1]);
 			}
 		});
-		
-		if (!defined(id)) {
-			var id = defined(next) ? next : first;    
-		}
+	},
+
+	getReleases: function(id) {
 		var loader = new air.URLLoader();
 		loader.addEventListener(air.Event.COMPLETE, Discogs.onGetReleases);
-		loader.load(new air.URLRequest(Discogs.api+'artists/'+id+'/releases?per_page=100')); 
+		loader.load(new air.URLRequest(Discogs.api+'artists/'+id+'/releases?per_page=100')); 	
 	},
 	
 	onGetReleases: function(e) {
@@ -102,6 +87,7 @@ var Discogs = {
 	onGetTracks: function(e) {
 		var results = '';
 		var data = $.parseJSON(e.target.data);
+		Discogs.artist = Discogs.cleanArtistName(data.artists[0].name);
 		$(data.tracklist).each(function(){
 			var title = Discogs.cleanTrackName(this.title);
 			var artist = Discogs.artist;
@@ -138,6 +124,11 @@ var Discogs = {
         str = str.replace(/"|`/g,"'");
         str = str.replace(/( )+/g,' ');
         return str;
+	},
+
+	cleanArtistName: function(str) {
+		str = str.replace(/(.*)/g,"");
+		return $.trim(str);
 	}
    
 }

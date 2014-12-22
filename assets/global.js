@@ -19,7 +19,7 @@ $(function(){
 				Artist_Overview.init(q.val());
 				$('.artist-similar, .artist-albums, .artist-tracks, .tracks-sources, .tracks-bitrate').empty();
 			} else if (q.attr('rel') == 'albums') {
-				Discogs.findArtist(q.val());
+				Discogs.getReleases(q.val());
 			} else {
 				$('.artist-tracks, .tracks-sources, .tracks-bitrate').empty();
 				Artist_Overview.findTrack(q.val());
@@ -55,17 +55,17 @@ $(function(){
 	});
 	
 	var menu = new air.NativeMenu();
-	menu.addItem(new air.NativeMenuItem("Search artists")).addEventListener(air.Event.SELECT, function(e){
+	menu.addItem(new air.NativeMenuItem("Search Artists")).addEventListener(air.Event.SELECT, function(e){
 		$('.toolbar .search').attr('rel','artist').attr('placeholder','search artist here');	
 	});
 	menu.addItem(new air.NativeMenuItem("Search Tracks")).addEventListener(air.Event.SELECT, function(e){
 		$('.toolbar .search').attr('rel','tracks');	
 	});
-	menu.addItem(new air.NativeMenuItem("Search genres")).addEventListener(air.Event.SELECT, function(e){
+	menu.addItem(new air.NativeMenuItem("Search Tags")).addEventListener(air.Event.SELECT, function(e){
 		$('.toolbar .search').attr('rel','genre').attr('placeholder','search genre here');;	
 	});
-	menu.addItem(new air.NativeMenuItem("Search tags")).addEventListener(air.Event.SELECT, function(e){
-		$('.toolbar .search').attr('rel','tags');	
+	menu.addItem(new air.NativeMenuItem("Search Albums")).addEventListener(air.Event.SELECT, function(e){
+		$('.toolbar .search').attr('rel','albums');	
 	});
 		
 	function showMenu(e) {
