@@ -1,1 +1,1 @@
-DOWNLOAD_FOLDER = "C:\\Muziq\\";
+DOWNLOAD_FOLDER = "U:\\Muziq\\";

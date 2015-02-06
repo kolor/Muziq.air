@@ -38,11 +38,12 @@ function onExit() {
     }
 }
 
+var inLogin = false;
 
 function vkLogin(forced) {
-	if (forced == false && token !== null && token !== "") {
-		return;
-	}
+	if (forced == false && token !== null && token !== "") 	return;
+	if (inLogin === true) return;
+	inLogin = true;
 	var token_url = 'http://api.vk.com/blank.html';
 	var wndOpts = new air.NativeWindowInitOptions();
 	wndOpts.type = air.NativeWindowType.UTILITY;
@@ -56,6 +57,7 @@ function vkLogin(forced) {
 }
 
 function onLogin(e) {
+	air.Introspector.Console.log(e.target.location);
 	var url = e.target.location.toString();
 	if (url.match(/^http:\/\/api.vk.com\/blank.html/)) {
 		e.target.removeEventListener(air.Event.COMPLETE, onLogin);
@@ -67,6 +69,8 @@ function onLogin(e) {
 	    	var bytes = new air.ByteArray();
 	    	bytes.writeUTFBytes(token);
 	    	air.EncryptedLocalStore.setItem("token", bytes);
+			inLogin = false;
+			air.Introspector.Console.log(token);
     	}
 	} else {
 		e.target.root.nativeWindow.activate();

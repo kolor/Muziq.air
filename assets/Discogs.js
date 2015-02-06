@@ -7,7 +7,7 @@ var Discogs = {
 
 	findArtist: function(q) {
 		this.found = []; this.artist = q; this.artistUrl = null;
-
+		Discogs.artist = q;
 		q = encodeURIComponent(q);
 		$('.artist-albums').addClass('load6');
 		//var url = new air.URLRequest('http://www.discogs.com/search/?type=artist&layout=med&q='+q);
@@ -87,7 +87,6 @@ var Discogs = {
 	onGetTracks: function(e) {
 		var results = '';
 		var data = $.parseJSON(e.target.data);
-		Discogs.artist = Discogs.cleanArtistName(data.artists[0].name);
 		$(data.tracklist).each(function(){
 			var title = Discogs.cleanTrackName(this.title);
 			var artist = Discogs.artist;

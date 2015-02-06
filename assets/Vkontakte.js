@@ -19,13 +19,13 @@ VK = {
 	},
 
 	onGetFiles: function(e) {
-			//air.Introspector.Console.log(e.target.data);
+		air.Introspector.Console.log(e.target.data);
 		var data = $.parseJSON(e.target.data);
 		if (defined(data.error)) {
 			vkLogin(true);
 			setTimeout(function(){
 				$('.track.selected').click();
-			}, 2000);
+			}, 4000);
 			return;
 		}
 
@@ -106,9 +106,7 @@ VK = {
 			var d = el.attr('data-duration');
 			var s = e.bytesTotal;
 			var b = 8*(s/1024)/d;
-			if (b > 380) {
-				el.remove();
-			}
+			//if (b > 400) { el.remove();	} // bitrate check
 			el.attr('data-bitrate',b).html(mkTime(d) +' @ '+ (e.bytesTotal/1048576).toFixed(1) +' Mb = '+ b.toFixed(1) +' kbps');
 			loader.close();
 		}        
