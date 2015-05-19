@@ -19,7 +19,7 @@ VK = {
 	},
 
 	onGetFiles: function(e) {
-		air.Introspector.Console.log(e.target.data);
+		//air.Introspector.Console.log(e.target.data);
 		var data = $.parseJSON(e.target.data);
 		if (defined(data.error)) {
 			vkLogin(true);

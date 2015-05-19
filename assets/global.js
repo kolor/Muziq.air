@@ -61,10 +61,10 @@ $(function(){
 	menu.addItem(new air.NativeMenuItem("Search Tracks")).addEventListener(air.Event.SELECT, function(e){
 		$('.toolbar .search').attr('rel','tracks');	
 	});
-	menu.addItem(new air.NativeMenuItem("Search Tags")).addEventListener(air.Event.SELECT, function(e){
+	menu.addItem(new air.NativeMenuItem("Search Genres")).addEventListener(air.Event.SELECT, function(e){
 		$('.toolbar .search').attr('rel','genre').attr('placeholder','search genre here');;	
 	});
-	menu.addItem(new air.NativeMenuItem("Search Albums")).addEventListener(air.Event.SELECT, function(e){
+	menu.addItem(new air.NativeMenuItem("Search Discogs")).addEventListener(air.Event.SELECT, function(e){
 		$('.toolbar .search').attr('rel','albums');	
 	});
 		

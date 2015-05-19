@@ -57,7 +57,7 @@ function vkLogin(forced) {
 }
 
 function onLogin(e) {
-	air.Introspector.Console.log(e.target.location);
+	//air.Introspector.Console.log(e.target.location);
 	var url = e.target.location.toString();
 	if (url.match(/^http:\/\/api.vk.com\/blank.html/)) {
 		e.target.removeEventListener(air.Event.COMPLETE, onLogin);
@@ -70,7 +70,7 @@ function onLogin(e) {
 	    	bytes.writeUTFBytes(token);
 	    	air.EncryptedLocalStore.setItem("token", bytes);
 			inLogin = false;
-			air.Introspector.Console.log(token);
+			//air.Introspector.Console.log(token);
     	}
 	} else {
 		e.target.root.nativeWindow.activate();
