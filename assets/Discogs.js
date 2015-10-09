@@ -41,6 +41,9 @@ var Discogs = {
 		var results = '';
 		var data = $.parseJSON(e.target.data);
 		data.releases.reverse();
+		data.releases.sort(function(a,b){
+			return b.year - a.year;
+		})
 		$(data.releases).each(function(){
 			if (this.role === "Main") {
 				if (s.found.indexOf(this.title) > -1) {
@@ -116,7 +119,7 @@ var Discogs = {
         str = str.replace(/( feat| ft\.| vocals by| vip).*/gi,''); // remove (this) and everything after
         str = str.replace(/(album|version|remix|rerub| mix|rmx|edit|radio)/gi,''); //remove (this)
         str = str.replace(/(mp3|flac|ogg)/gi,'');
-        
+        str = str.replace(/\(.*\)|\[.*\]/g,''); // remove brackets content
         str = str.replace(/(\- | \-|\(|\)|\[|\]|\{|\})+/g,''); // remove bracket leftovers
         str = str.replace(/(@|_|,|\.)+/g,' '); // replace with space
         str = str.replace(/(!|#|%|\^|\*|\\|\/|\?|<|>)+/g,''); // remove

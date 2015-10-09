@@ -6,7 +6,8 @@ $(function(){
 		mp3: "http://airy.me/test.mp3",
 	}, {
 		cssSelectorAncestor: "#cp_container_1",
-		supplied: "mp3"
+		supplied: "mp3",
+		volume: 1
 	});
 	
 	$('.toolbar button').click(function(){
@@ -206,8 +207,6 @@ var Artist_Overview = {
 	
 	initTracks: function(){
 		$('.artist-tracks').removeClass('load6');		
-		markExistingFiles();
-
 		makeMenu('.artist-tracks .track', [
 			{title:"Sort A-Z", fn: function(){
 				var sel = $('.artist-tracks .track');
@@ -235,6 +234,7 @@ var Artist_Overview = {
 				$(menuTarget).remove();
 			}}
 		]);
+		markExistingFiles();
 	},
 	
 	initTrackSources: function() {
